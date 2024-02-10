@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <title>Quiz</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #E3F9F6;
+    color: #2f303f;
+    line-height: 1.5em;
+    display: grid;
+    place-items: center;
+  }
+
+		nav {
+  				background: #2f303f;
+  				color: white;
+  				position: fixed;
+  				top: 0;
+  				width: 100%;
+  				margin: 0;
+  				padding: 15px 20px;
+  				font-size: 16px;
+  				text-align: center;
+          max-width: 500px;
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+  }
+  i{
+  				margin: auto 15px;
+  				text-align: left;
+  }
+  .container {
+    max-width: 500px;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+		hr{
+				margin-bottom:20px;
+				border: none;
+		}
+		
+  h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 27px;
+    line-height: 1.2em;
+    padding-bottom: 10px;
+    border-bottom: 3px solid black;
+  }
+
+  #questions {
+    margin-top: 10px;
+  }
+
+  .question {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .option {
+    background-color: #F5F5F6;
+    color: #2f303f;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+
+  .feedback {
+    font-size: 16px;
+    margin: 20px 10px;
+    display: block;
+    color: blue;
+  }
+
+  .feedback-incorrect {
+    color: black;
+  }
+
+  .feedback-correct {
+    color: black;
+  }
+
+	 #refresh-button{
+  				background-color: #007bff;
+  }
+  
+  .btn {
+  				display: grid;
+  				grid-template-columns: 1fr 1fr;
+  				border-top: 2px solid #000;
+  				padding-top: 20px;
+  }
+  
+  button {
+    height: 40px;
+    font-size: 16px;
+    background-color: #f56;
+    color: #fff;
+    padding: 10px 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0px 5px;
+  }
+  .option-image {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+  }
+    
+
+</style>
+
+</head>
+<body>
+				<nav>
+  							<i class="fa fa-arrow-left"></i>
+  							<b>Soal Structure</b>
+  			</nav>
+  <div class="container">
+  			
+  			<!-- Content -->
+    <h1>Latihan Soal Structure</h1>
+    <div id="questions"></div>
+    <div class="btn">
+    				<button href="../quiz">Close</button>
+    				<button id="refresh-button">Next</button>
+    </div>
+  </div>
+
+  <script src="structure.js"></script>
+ <script>
+const allQuestions = questionsPart1;
+
+document.addEventListener("DOMContentLoaded", function () {
+  const questionsContainer = document.getElementById("questions");
+  const refreshButton = document.getElementById("refresh-button");
+
+  const optionsPrefix = ["A. ", "B. ", "C. ", "D. ", "E. "];
+  const questionsPerPage = 2;
+  const selectedOptions = new Array(allQuestions.length).fill(null);
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  function displayQuestions(startIndex) {
+    questionsContainer.innerHTML = "";
+
+    for (let i = startIndex; i < startIndex + questionsPerPage && i < allQuestions.length; i++) {
+      const currentQuestion = allQuestions[i];
+      const questionElement = document.createElement("div");
+      questionElement.innerHTML = `#${i + 1}. ${currentQuestion.question}`;
+      questionsContainer.appendChild(questionElement);
+      questionElement.style.margin = "15px 5px";
+      
+      // Tambahkan aturan CSS untuk gaya gambar di dalam pertanyaan 
+      const imagesInQuestion = questionElement.querySelectorAll('img'); imagesInQuestion.forEach((img) => { img.style.maxWidth = "100%"; img.style.margin = "10px 0"; });
+
+currentQuestion.options.forEach((option, optionIndex) => { const optionElement = document.createElement("div"); optionElement.innerHTML = optionsPrefix[optionIndex] + option; optionElement.classList.add("option"); optionElement.dataset.optionIndex = optionIndex;
+				 optionElement.addEventListener("click", function () { checkAnswer(optionIndex, currentQuestion.correctIndex, i, optionElement); });
+				 
+				 // Cari semua elemen gambar dalam opsi 
+				 const imagesInOption = optionElement.querySelectorAll('img'); imagesInOption.forEach((img) => { 
+				 img.style.maxWidth = "100%"; 
+				 				img.style.height = "auto"; 
+				 				// Menyesuaikan tinggi agar gambar tidak terdistorsi 
+				 				img.style.margin = "10px 0"; // Margin atas-bawah 10px 
+				 				});
+				 
+				  questionsContainer.appendChild(optionElement); });
+
+      const feedbackElement = document.createElement("div");
+      feedbackElement.classList.add("feedback");
+      questionsContainer.appendChild(feedbackElement);
+
+      const separator = document.createElement("hr");
+      questionsContainer.appendChild(separator);
+    }
+  }
+
+  function checkAnswer(selectedOptionIndex, correctOptionIndex, questionIndex, selectedOptionElement) {
+    const feedbackElement = questionsContainer.querySelectorAll(".feedback")[questionIndex];
+
+    if (selectedOptions[questionIndex] === null) {
+      selectedOptions[questionIndex] = selectedOptionIndex;
+
+      if (selectedOptionIndex === correctOptionIndex) {
+        selectedOptionElement.style.backgroundColor = "#9CE69F";
+        feedbackElement.textContent = ">> Jawaban Anda benar";
+        feedbackElement.style.color = "#4CAF50";
+      } else {
+        const correctOptionElement = questionsContainer.querySelectorAll(".option")[correctOptionIndex + questionIndex * 4];
+        selectedOptionElement.style.backgroundColor = "#F47D89";
+        correctOptionElement.style.backgroundColor = "#9CE69F";
+        feedbackElement.textContent = ">> Jawaban Anda salah";
+        feedbackElement.style.color = "#F56";
+      }
+    }
+  }
+
+  refreshButton.addEventListener("click", function () {
+    shuffleArray(allQuestions);
+    selectedOptions.fill(null);
+    displayQuestions(0);
+  });
+
+  shuffleArray(allQuestions);
+  displayQuestions(0);
+});
+
+</script>
+<script type="module" src="https://unpkg.com/ionicons@5.0.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
