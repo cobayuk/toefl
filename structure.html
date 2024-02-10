@@ -1,151 +1,134 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
   <title>Quiz</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #E3F9F6;
-    color: #2f303f;
-    line-height: 1.5em;
-    display: grid;
-    place-items: center;
-  }
-
-		nav {
-  				background: #2f303f;
-  				color: white;
-  				position: fixed;
-  				top: 0;
-  				width: 100%;
-  				margin: 0;
-  				padding: 15px 20px;
-  				font-size: 16px;
-  				text-align: center;
-          max-width: 500px;
-          display: grid;
-          grid-template-columns: 1fr 1fr 1fr;
-  }
-  i{
-  				margin: auto 15px;
-  				text-align: left;
-  }
-  .container {
-    max-width: 500px;
-    margin-top: 40px;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-		hr{
-				margin-bottom:20px;
-				border: none;
-		}
-		
-  h1 {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 27px;
-    line-height: 1.2em;
-    padding-bottom: 10px;
-    border-bottom: 3px solid black;
-  }
-
-  #questions {
-    margin-top: 10px;
-  }
-
-  .question {
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  .option {
-    background-color: #F5F5F6;
-    color: #2f303f;
-    padding: 10px;
-    margin: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-  }
-
-  .feedback {
-    font-size: 16px;
-    margin: 20px 10px;
-    display: block;
-    color: blue;
-  }
-
-  .feedback-incorrect {
-    color: black;
-  }
-
-  .feedback-correct {
-    color: black;
-  }
-
-	 #refresh-button{
-  				background-color: #007bff;
-  }
-  
-  .btn {
-  				display: grid;
-  				grid-template-columns: 1fr;
-  				border-top: 2px solid #000;
-  				padding-top: 20px;
-	  			margin: 10px 0px;
-  }
-  
-  button {
-    height: 40px;
-    font-size: 16px;
-    background-color: #f56;
-    color: #fff;
-    padding: 10px 30px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    margin: 0px 5px;
-  }
-  .option-image {
-    max-width: 100%;
-    height: auto;
-    margin: 10px 0;
-  }
-    
-
-</style>
-
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #E3F9F6;
+      color: #2f303f;
+      line-height: 1.5em;
+      display: grid;
+      place-items: center;
+    }
+    nav {
+      background: #2f303f;
+      color: white;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      margin: 0 10px;
+      padding: 15px 20px;
+      font-size: 16px;
+      max-width: 500px;
+      display: grid;
+      text-align: center;
+      grid-template-columns: 1fr 1fr 1fr ;
+    }
+    nav i {
+      margin: auto 15px;
+      text-align: right;
+    }
+    nav a {
+      margin: auto 15px;
+      text-align: left;
+    }
+    .container {
+      max-width: 500px;
+      margin-top: 40px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    hr {
+      margin-bottom: 20px;
+      border: none;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 27px;
+      line-height: 1.2em;
+      padding-bottom: 10px;
+      border-bottom: 3px solid black;
+    }
+    #questions {
+      margin-top: 10px;
+    }
+    .question {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .option {
+      background-color: #F5F5F6;
+      color: #2f303f;
+      padding: 10px;
+      margin: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+    .feedback {
+      font-size: 16px;
+      margin: 20px 10px;
+      display: block;
+      color: blue;
+    }
+    .feedback-incorrect {
+      color: black;
+    }
+    .feedback-correct {
+      color: black;
+    }
+    #refresh-button {
+      background-color: #007bff;
+    }
+    .btn {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 2px solid #000;
+      padding-top: 20px;
+    }
+    button {
+      height: 40px;
+      font-size: 16px;
+      background-color: #f56;
+      color: #fff;
+      padding: 10px 30px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      margin: 0px 5px;
+    }
+    .option-image {
+      max-width: 100%;
+      height: auto;
+      margin: 10px 0;
+    }
+  </style>
 </head>
 <body>
-				<nav>
-
-  							<b>Soal Structure</b>
-  							<a href="index.html"><i class="fa fa-home"></i></a>
-				</nav>
+  <nav>
+    <a hfef="index.html" class="fa fa-arrow-left"></a>
+    <b>Soal Structure</b>
+    <i class="fa fa-search"></i>
+  </nav>
   <div class="container">
-  			
-  			<!-- Content -->
     <h1>Latihan Soal Structure</h1>
     <div id="questions"></div>
     <div class="btn">
-    				<button id="refresh-button">Next</button>
-	        		<button href="index.html">Close</button>
-	    			<div></div>
+      <button href="index.html">Close</button>
+      <button id="refresh-button">Next</button>
     </div>
   </div>
 
   <script src="structure.js"></script>
- <script>
+<script>
 const allQuestions = questionsPart1;
 
 document.addEventListener("DOMContentLoaded", function () {
